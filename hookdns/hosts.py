@@ -2,9 +2,9 @@
 
 from contextlib import ContextDecorator, ExitStack
 
-from .getaddrinfo import fake_getaddrinfo
-from .gethostbyname import fake_gethostbyname
-from .gethostbyname_ex import fake_gethostbyname_ex
+from .getaddrinfo import patch_getaddrinfo
+from .gethostbyname import patch_gethostbyname
+from .gethostbyname_ex import patch_gethostbyname_ex
 
 class hosts(ContextDecorator):
 
@@ -18,11 +18,11 @@ class hosts(ContextDecorator):
 
     def __enter__(self):
         if "gethostbyname" in self.patchs:
-            self.exit_stack.enter_context(fake_gethostbyname(self.hosts))
+            self.exit_stack.enter_context(patch_gethostbyname(self.hosts))
         if "gethostbyname_ex" in self.patchs:
-            self.exit_stack.enter_context(fake_gethostbyname_ex(self.hosts))
+            self.exit_stack.enter_context(patch_gethostbyname_ex(self.hosts))
         if "getaddrinfo" in self.patchs:
-            self.exit_stack.enter_context(fake_getaddrinfo(self.hosts))
+            self.exit_stack.enter_context(patch_getaddrinfo(self.hosts))
         return self
 
     def __exit__(self, *exc):
