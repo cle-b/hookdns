@@ -56,7 +56,7 @@ with hosts({"example.org": "localhost"}, only=["gethostbyname"]):
     addr = socket.gethostbyname("example.org") # returns "127.0.0.1"
     print("gethostname returns: %s" % addr)
 
-    _, _ ,addr = socket.gethostbyname_ex("example.org") # returns the real ip address for example.org
+    _, _, addr = socket.gethostbyname_ex("example.org") # returns the real ip address for example.org
     print("gethostname_ex returns: %s" % addr[0])
     ...    
 ```
