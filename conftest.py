@@ -36,7 +36,7 @@ class Httpd(threading.Thread):
     def stop(self):       
         self.httpd.shutdown()
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="session", autouse=True)
 def httpd():
     server = Httpd()
     server.start()
