@@ -2,9 +2,7 @@ language: python
 python: "3.6"
 env:
 - TOX_ENV=py36
-addons:
-  hosts:
-    - localhost
+sudo: required
 install:
 - pip install tox
 script: tox -e $TOX_ENV
