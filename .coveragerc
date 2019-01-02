@@ -1,0 +1,6 @@
+[run]
+source =
+    hookdns
+
+[report]
+omit = */tests/*
