@@ -1,6 +1,6 @@
 language: python
 python: "3.6"
-sudo: required
+dist: xenial
 before_install:
   - cat /etc/hosts
 env:
