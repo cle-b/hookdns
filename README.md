@@ -70,4 +70,4 @@ gethostname_ex returns: 93.184.216.34
 
 ## Limitation
 
-It works only with Python 3.6 and greater for the moment.
+It works only with Python 3.4 and greater for the moment.
