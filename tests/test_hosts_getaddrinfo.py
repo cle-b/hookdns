@@ -89,10 +89,10 @@ def test_patch_decorator_with_public_fqdn_and_a_name_for_addr_ipv4():
     family=socket.AF_INET
     assert socket.getaddrinfo("example.org", 80, family=family) == socket.getaddrinfo("localhost", 80, family=family)
 
-@hosts({"example.org":"localhost"})
+@hosts({"example.org":"ip6-localhost"})
 def test_patch_decorator_with_public_fqdn_and_a_name_for_addr_ipv6():
     family=socket.AF_INET6
-    assert socket.getaddrinfo("example.org", 80, family=family) == socket.getaddrinfo("localhost", 80, family=family)
+    assert socket.getaddrinfo("example.org", 80, family=family) == socket.getaddrinfo("ip6-localhost", 80, family=family)
 
 @hosts({"UNKNOWN_HOST_AZ": "127.0.0.1"})
 def test_patch_decorator_with_unknown_hostname():
