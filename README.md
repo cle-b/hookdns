@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/cle-b/hookdns.svg?branch=master)](https://travis-ci.org/cle-b/hookdns) [![Coverage Status](https://coveralls.io/repos/github/cle-b/hookdns/badge.svg?branch=master)](https://coveralls.io/github/cle-b/hookdns?branch=master)
+
 # hookdns
 
 HookDNS is a library which allow you to modify a name resolution in your Python script without any modification in your hosts file or by using a fake DNS.
