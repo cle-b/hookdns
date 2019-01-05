@@ -41,8 +41,10 @@ class patch_gethostbyname_ex(ContextDecorator):
 
     def _patch_socket_gethostbyname_ex(self, hostname):
         new_host = self.hosts.get(hostname, hostname)
-        (_, aliaslist, ipaddrlist)  = self.real_socket_gethostbyname_ex(new_host)
-        return (hostname, aliaslist, ipaddrlist)
+        (_, _, ipaddrlist)  = self.real_socket_gethostbyname_ex(new_host)
+        # we modify the return value with the original hostname
+        # and set an empty aliaslist
+        return (hostname, [], ipaddrlist) 
 
     def __enter__(self):
         self.mock_gethostbyname_ex = patch('socket.gethostbyname_ex') 

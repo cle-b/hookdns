@@ -14,7 +14,7 @@ def test_real_getaddrinfo_with_name_ipv4():
         assert sockaddr == ("127.0.0.1", 80)
 
 def test_real_getaddrinfo_with_name_ipv6():
-    r = socket.getaddrinfo("localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP)
+    r = socket.getaddrinfo("ip6-localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP)
     for (_, _, _, _, sockaddr) in r:
         assert sockaddr == ("::1", 80, 0, 0)
 
@@ -50,9 +50,9 @@ def test_patch_decorator_with_name_ipv4():
     for (_, _, _, _, sockaddr) in r:
         assert sockaddr == ("1.2.3.4", 80)
 
-@patch_getaddrinfo({"localhost": "1::23"})
+@patch_getaddrinfo({"ip6-localhost": "1::23"})
 def test_patch_decorator_with_name_ipv6():
-    r = socket.getaddrinfo("localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP)
+    r = socket.getaddrinfo("ip6-localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP)
     for (_, _, _, _, sockaddr) in r:
         assert sockaddr == ("1::23", 80, 0, 0)
 
@@ -89,10 +89,10 @@ def test_patch_decorator_with_public_fqdn_and_a_name_for_addr_ipv4():
     family=socket.AF_INET
     assert socket.getaddrinfo("example.org", 80, family=family) == socket.getaddrinfo("localhost", 80, family=family)
 
-@patch_getaddrinfo({"example.org":"localhost"})
+@patch_getaddrinfo({"example.org":"ip6-localhost"})
 def test_patch_decorator_with_public_fqdn_and_a_name_for_addr_ipv6():
     family=socket.AF_INET6
-    assert socket.getaddrinfo("example.org", 80, family=family) == socket.getaddrinfo("localhost", 80, family=family)
+    assert socket.getaddrinfo("example.org", 80, family=family) == socket.getaddrinfo("ip6-localhost", 80, family=family)
 
 @patch_getaddrinfo({"UNKNOWN_HOST_AZ": "127.0.0.1"})
 def test_patch_decorator_with_unknown_hostname():
@@ -106,7 +106,7 @@ def test_patch_decorator_with_another_hostname_ipv4():
 
 @patch_getaddrinfo({"localhost2": "1.2.3.4"})
 def test_patch_decorator_with_another_hostname_ipv6():
-    r = socket.getaddrinfo("localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP)
+    r = socket.getaddrinfo("ip6-localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP)
     for (_, _, _, _, sockaddr) in r:
         assert sockaddr == ("::1", 80, 0, 0)
 
@@ -119,8 +119,8 @@ def test_patch_contextmanager_with_name_ipv4():
                 assert sockaddr == ("1.2.3.4", 80)
 
 def test_patch_contextmanager_with_name_ipv6():
-    with patch_getaddrinfo({"localhost": "1::23"}):
-        r = socket.getaddrinfo("localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP)
+    with patch_getaddrinfo({"ip6-localhost": "1::23"}):
+        r = socket.getaddrinfo("ip6-localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP)
         for (_, _, _, _, sockaddr) in r:
                 assert sockaddr == ("1::23", 80, 0, 0)
 
@@ -159,9 +159,9 @@ def test_patch_contextmanager_with_public_fqdn_and_a_name_for_addr_ipv4():
         assert socket.getaddrinfo("example.org", 80, family=family) == socket.getaddrinfo("localhost", 80, family=family)
 
 def test_patch_contextmanager_with_public_fqdn_and_a_name_for_addr_ipv6():
-    with patch_getaddrinfo({"example.org": "localhost"}):
+    with patch_getaddrinfo({"example.org": "ip6-localhost"}):
         family=socket.AF_INET6
-        assert socket.getaddrinfo("example.org", 80, family=family) == socket.getaddrinfo("localhost", 80, family=family)
+        assert socket.getaddrinfo("example.org", 80, family=family) == socket.getaddrinfo("ip6-localhost", 80, family=family)
 
 def test_patch_contextmanager_with_unknown_hostname():
     with patch_getaddrinfo({"UNKNOWN_HOST_AZ": "127.0.0.1"}):
@@ -175,6 +175,6 @@ def test_patch_contextmanager_with_another_hostname_ipv4():
         
 def test_patch_contextmanager_with_another_hostname_ipv6():
     with patch_getaddrinfo({"localhost2": "1.2.3.4"}):
-        r = socket.getaddrinfo("localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP)
+        r = socket.getaddrinfo("ip6-localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP)
         for (_, _, _, _, sockaddr) in r:
                 assert sockaddr == ("::1", 80, 0, 0)
