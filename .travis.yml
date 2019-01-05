@@ -7,7 +7,7 @@ before_script:
       sudo sh -c 'echo 0 > /proc/sys/net/ipv6/conf/all/disable_ipv6';
       sudo sh -c 'echo -e "\n::1    ip6-localhost\n" >> /etc/hosts';
     fi
-atrix:
+matrix:
   include:
     - python: 3.6
       env: TOXENV=py36
