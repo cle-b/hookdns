@@ -1,13 +1,5 @@
 language: python
-python: 
-  - "3.6"
-  - "3.7"  
 sudo: required
-env:
-- TOX_ENV=py36
-- TOX_ENV=py37
-install:
-- pip install tox
 before_script:
   # Add an IPv6 config
   # https://github.com/travis-ci/travis-ci/issues/8361
@@ -15,6 +7,15 @@ before_script:
       sudo sh -c 'echo 0 > /proc/sys/net/ipv6/conf/all/disable_ipv6';
       sudo sh -c 'echo -e "\n::1    ip6-localhost\n" >> /etc/hosts';
     fi
+atrix:
+  include:
+    - python: 3.6
+      env: TOXENV=py36
+    - python: 3.7
+      env: TOXENV=py37
+
+install:
+- pip install tox
 script: tox -e $TOX_ENV
 after_success:
 - pip install coveralls
