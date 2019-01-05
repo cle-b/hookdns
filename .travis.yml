@@ -3,6 +3,7 @@ python: "3.6"
 sudo: required
 env:
 - TOX_ENV=py36
+- TOX_ENV=py37
 install:
 - pip install tox
 before_script:
