@@ -3,11 +3,12 @@
 import setuptools
 
 with open("README.md", "r") as fh:
-    long_description = fh.read()
+    desc = fh.read()
+    long_description = desc[desc.find("# hookdns"):] # remove bagde
 
 setuptools.setup(
     name="hookdns",
-    version="0.0.1",
+    version="1.0.0",
     author="cle-b",
     author_email="cle@tictac.pm",
     description="An easy way to customize the dns resolution",
@@ -15,6 +16,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/cle-b/hookdns",
     packages=setuptools.find_packages(),
+    python_requires=">=3.4",
     install_requires=[
           'mock',
     ],
