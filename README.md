@@ -42,7 +42,7 @@ with hosts({"example.org": "localhost"}):
     r = requests.get("http://example.org") # the request is sent to your local server
     ...
 ```
-### Parametrization
+### Options
 
 By default the following function calls are intercepted: *socket.gethostbyname, socket.gethostbyname_ex and socket.getaddrinfo*.
 
