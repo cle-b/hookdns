@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/cle-b/hookdns.svg?branch=master)](https://travis-ci.org/cle-b/hookdns) [![Coverage Status](https://coveralls.io/repos/github/cle-b/hookdns/badge.svg?branch=master)](https://coveralls.io/github/cle-b/hookdns?branch=master)
+[![Build Status](https://travis-ci.org/cle-b/hookdns.svg?branch=master)](https://travis-ci.org/cle-b/hookdns) [![Coverage Status](https://coveralls.io/repos/github/cle-b/hookdns/badge.svg?branch=master)](https://coveralls.io/github/cle-b/hookdns?branch=master) [![PyPI version](https://badge.fury.io/py/hookdns.svg)](https://pypi.org/project/hookdns/)
 
 # hookdns
 
