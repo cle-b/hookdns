@@ -4,6 +4,12 @@
 
 HookDNS is a library which allow you to modify a name resolution in your Python script without any modification in your hosts file or by using a fake DNS.
 
+## Installation
+
+```
+pip install hookdns
+```
+
 ## Usage
 
 Custom DNS resolutions are describe by a dictionnary where the keys are hostnames
