@@ -21,7 +21,12 @@ matrix:
 
 install:
 - pip install tox
-script: tox -e $TOX_ENV
+- pip install flake8
+- pip install black
+script: 
+- tox -e $TOX_ENV
+- flake8 .
+- black --check .
 after_success:
 - pip install coveralls
 - coveralls

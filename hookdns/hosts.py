@@ -6,8 +6,8 @@ from .getaddrinfo import patch_getaddrinfo
 from .gethostbyname import patch_gethostbyname
 from .gethostbyname_ex import patch_gethostbyname_ex
 
-class hosts(ContextDecorator):
 
+class hosts(ContextDecorator):
     def __init__(self, hosts, only=None):
         self.hosts = hosts
         if only is None:

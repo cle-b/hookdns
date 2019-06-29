@@ -4,7 +4,8 @@ import setuptools
 
 with open("README.md", "r") as fh:
     desc = fh.read()
-    long_description = desc[desc.find("# hookdns"):] # remove bagde
+    title_index = desc.find("# hookdns")
+    long_description = desc[title_index:]  # remove bagde
 
 setuptools.setup(
     name="hookdns",
@@ -17,12 +18,10 @@ setuptools.setup(
     url="https://github.com/cle-b/hookdns",
     packages=setuptools.find_packages(),
     python_requires=">=3.4",
-    install_requires=[
-          'mock',
-    ],
+    install_requires=["mock"],
     classifiers=[
         "Programming Language :: Python :: 3",
-        'License :: OSI Approved :: Apache Software License',
+        "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
     ],
 )

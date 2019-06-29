@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.org/cle-b/hookdns.svg?branch=master)](https://travis-ci.org/cle-b/hookdns) [![Coverage Status](https://coveralls.io/repos/github/cle-b/hookdns/badge.svg?branch=master)](https://coveralls.io/github/cle-b/hookdns?branch=master) [![PyPI version](https://badge.fury.io/py/hookdns.svg)](https://pypi.org/project/hookdns/)
+[![Build Status](https://travis-ci.org/cle-b/hookdns.svg?branch=master)](https://travis-ci.org/cle-b/hookdns) [![Coverage Status](https://coveralls.io/repos/github/cle-b/hookdns/badge.svg?branch=master)](https://coveralls.io/github/cle-b/hookdns?branch=master) [![PyPI version](https://badge.fury.io/py/hookdns.svg)](https://pypi.org/project/hookdns/)[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
 
 # hookdns
 
-HookDNS is a library which allow you to modify a name resolution in your Python script without any modification in your hosts file or by using a fake DNS.
+HookDNS is a library which allow you to modify a name resolution in your Python script without any modification in your hosts file or by using a fake DNS resolver.
 
 ## Installation
 
@@ -76,4 +76,4 @@ gethostname_ex returns: 93.184.216.34
 
 ## Limitation
 
-It works only with Python 3.4 and greater for the moment.
+It works only with Python 3.4 and greater.
