@@ -23,13 +23,13 @@ install:
 - pip install tox
 - pip install flake8
 - if [ "${TOX_ENV}" == py37 ]; then
-    pip install black
+    pip install black;
   fi
 script: 
 - tox -e $TOX_ENV
 - flake8 .
 - if [ "${TOX_ENV}" == py37 ]; then
-    black --check . --exclude=.tox
+    black --check . --exclude=.tox;
   fi
 after_success:
 - pip install coveralls
