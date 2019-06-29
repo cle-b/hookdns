@@ -21,7 +21,16 @@ matrix:
 
 install:
 - pip install tox
-script: tox -e $TOX_ENV
+- pip install flake8
+- if [ "${TOX_ENV}" == py37 ]; then
+    pip install black;
+  fi
+script: 
+- tox -e $TOX_ENV
+- flake8 .
+- if [ "${TOX_ENV}" == py37 ]; then
+    black --check . --exclude=.tox;
+  fi
 after_success:
 - pip install coveralls
 - coveralls
