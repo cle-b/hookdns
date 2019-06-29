@@ -9,7 +9,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="hookdns",
-    version="1.0.0",
+    version="1.0.1",
     author="cle-b",
     author_email="cle@tictac.pm",
     description="An easy way to customize the dns resolution",
