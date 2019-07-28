@@ -1,3 +1,7 @@
 black
 pre-commit
 flake8
+coverage
+pytest
+requests
+tox
