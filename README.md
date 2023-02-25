@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/cle-b/hookdns.svg?branch=master)](https://travis-ci.org/cle-b/hookdns) [![Coverage Status](https://coveralls.io/repos/github/cle-b/hookdns/badge.svg?branch=master)](https://coveralls.io/github/cle-b/hookdns?branch=master) [![PyPI version](https://badge.fury.io/py/hookdns.svg)](https://pypi.org/project/hookdns/) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
+[![Build Status](https://github.com/cle-b/hookdns/workflows/Build/badge.svg?branch=main)](https://github.com/cle-b/hookdns/actions?query=workflow%3ABuild) [![Coverage Status](https://coveralls.io/repos/github/cle-b/hookdns/badge.svg?branch=main)](https://coveralls.io/github/cle-b/hookdns?branch=main) [![PyPI version](https://badge.fury.io/py/hookdns.svg)](https://pypi.org/project/hookdns/) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
 
 # hookdns
 
