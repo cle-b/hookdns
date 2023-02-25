@@ -2,3 +2,6 @@ coverage
 pytest
 requests
 tox
+black
+pre-commit
+flake8
