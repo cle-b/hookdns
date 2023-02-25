@@ -1,0 +1,59 @@
+name: Build
+
+on: [push]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.8
+    - name: Lint code
+      run: |
+        pip install -r requirements-dev.txt
+        make lint
+
+  test:
+    name: Test
+    needs: lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
+    - name: Run all tests + code coverage
+      run: |
+        pip install coveralls
+        make coverage
+        coveralls
+      env:
+        GITHUB_TOKEN: ${{ secrets.COVERALLS }}
+
+  testospython:
+    name: Test OS/Python version
+    needs: test
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-20.04]
+        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10", "3.11"]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Run tests
+      run: |
+        make ci
+
