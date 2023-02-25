@@ -2,8 +2,7 @@
 
 from contextlib import ContextDecorator
 import socket
-
-from mock import patch
+from unittest.mock import patch
 
 
 class patch_gethostbyname_ex(ContextDecorator):
