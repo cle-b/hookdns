@@ -44,3 +44,27 @@ jobs:
       run: |
         make ci
 
+  deploy:
+    name: Deploy on Pypi
+    needs: testpythons
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.8
+    - name: Install pypa/build
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install build --user
+    - name: Build a binary wheel and a source tarball
+      run: |
+        python -m build --sdist --wheel --outdir dist/
+    - name: Publish package on Pypi
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_API_TOKEN }}
