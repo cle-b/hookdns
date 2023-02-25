@@ -17,7 +17,7 @@ def test_patch_decorator_only_gethostbyname():
     r = socket.getaddrinfo(
         "localhost", 80, family=socket.AF_INET, proto=socket.IPPROTO_TCP
     )
-    for (_, _, _, _, sockaddr) in r:
+    for _, _, _, _, sockaddr in r:
         assert sockaddr == ("127.0.0.1", 80)
 
 
@@ -28,7 +28,7 @@ def test_patch_decorator_only_gethostbyname_ex():
     r = socket.getaddrinfo(
         "localhost", 80, family=socket.AF_INET, proto=socket.IPPROTO_TCP
     )
-    for (_, _, _, _, sockaddr) in r:
+    for _, _, _, _, sockaddr in r:
         assert sockaddr == ("127.0.0.1", 80)
 
 
@@ -41,7 +41,7 @@ def test_patch_decorator_only_getaddrinfo():
     r = socket.getaddrinfo(
         "localhost", 80, family=socket.AF_INET, proto=socket.IPPROTO_TCP
     )
-    for (_, _, _, _, sockaddr) in r:
+    for _, _, _, _, sockaddr in r:
         assert sockaddr == ("1.2.3.4", 80)
 
 
@@ -52,7 +52,7 @@ def test_patch_decorator_only_gethostbyname_and_gethostbyname_ex():
     r = socket.getaddrinfo(
         "localhost", 80, family=socket.AF_INET, proto=socket.IPPROTO_TCP
     )
-    for (_, _, _, _, sockaddr) in r:
+    for _, _, _, _, sockaddr in r:
         assert sockaddr == ("127.0.0.1", 80)
 
 
@@ -68,7 +68,7 @@ def test_patch_contextmanager_only_gethostbyname():
         r = socket.getaddrinfo(
             "localhost", 80, family=socket.AF_INET, proto=socket.IPPROTO_TCP
         )
-        for (_, _, _, _, sockaddr) in r:
+        for _, _, _, _, sockaddr in r:
             assert sockaddr == ("127.0.0.1", 80)
 
 
@@ -79,7 +79,7 @@ def test_patch_contextmanager_only_gethostbyname_ex():
         r = socket.getaddrinfo(
             "localhost", 80, family=socket.AF_INET, proto=socket.IPPROTO_TCP
         )
-        for (_, _, _, _, sockaddr) in r:
+        for _, _, _, _, sockaddr in r:
             assert sockaddr == ("127.0.0.1", 80)
 
 
@@ -92,7 +92,7 @@ def test_patch_contextmanager_only_getaddrinfo():
         r = socket.getaddrinfo(
             "localhost", 80, family=socket.AF_INET, proto=socket.IPPROTO_TCP
         )
-        for (_, _, _, _, sockaddr) in r:
+        for _, _, _, _, sockaddr in r:
             assert sockaddr == ("1.2.3.4", 80)
 
 
@@ -103,5 +103,5 @@ def test_patch_contextmanager_only_gethostbyname_and_gethostbyname_ex():
         r = socket.getaddrinfo(
             "localhost", 80, family=socket.AF_INET, proto=socket.IPPROTO_TCP
         )
-        for (_, _, _, _, sockaddr) in r:
+        for _, _, _, _, sockaddr in r:
             assert sockaddr == ("127.0.0.1", 80)
