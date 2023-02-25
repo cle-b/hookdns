@@ -3,24 +3,8 @@ name: Build
 on: [push]
 
 jobs:
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.8
-    - name: Lint code
-      run: |
-        pip install -r requirements-dev.txt
-        make lint
-
   test:
     name: Test
-    needs: lint
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -29,6 +13,10 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: "3.10"
+    - name: Linter and code format verification
+      run: |
+        pip install -r requirements-dev.txt
+        make lint        
     - name: Run all tests + code coverage
       run: |
         pip install coveralls
