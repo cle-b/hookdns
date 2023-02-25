@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "hookdns"
 authors = [
-    {name = "cle-b", email = "cle-b@tictac.pm"},
+    {name = "cle-b", email = "cle@tictac.pm"},
 ]
 description="An easy way to customize the dns resolution"
 readme="README.md"
