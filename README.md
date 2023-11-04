@@ -1,8 +1,19 @@
-[![Build Status](https://github.com/cle-b/hookdns/workflows/Build/badge.svg?branch=main)](https://github.com/cle-b/hookdns/actions?query=workflow%3ABuild) [![Coverage Status](https://coveralls.io/repos/github/cle-b/hookdns/badge.svg?branch=main)](https://coveralls.io/github/cle-b/hookdns?branch=main) [![PyPI version](https://badge.fury.io/py/hookdns.svg)](https://pypi.org/project/hookdns/) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
+[![Build Status](https://github.com/cle-b/hookdns/workflows/Build/badge.svg?branch=main)](https://github.com/cle-b/hookdns/actions?query=workflow%3ABuild) [![Coverage Status](https://coveralls.io/repos/github/cle-b/hookdns/badge.svg?branch=main)](https://coveralls.io/github/cle-b/hookdns?branch=main) [![PyPI version](https://badge.fury.io/py/hookdns.svg)](https://pypi.org/project/hookdns/)
 
 # hookdns
 
 HookDNS is a library which allow you to modify a name resolution in your Python script without any modification in your hosts file or by using a fake DNS resolver.
+
+```python
+import requests
+
+from hookdns import hosts
+
+with hosts({"example.org": "127.0.0.1"}):
+    ...
+    r = requests.get("http://example.org")  # the request is sent to your local server
+    ...
+```
 
 ## Installation
 
@@ -29,10 +40,10 @@ import requests
 
 from hookdns import hosts
 
-@hosts({"example.org": "localhost"})
+@hosts({"example.org": "127.0.0.1"})
 def myfunc():
     ...
-    r = requests.get("http://example.org") # the request is sent to your local server
+    r = requests.get("http://example.org")  # the request is sent to your local server
     ...
 ```
 
@@ -45,7 +56,7 @@ from hookdns import hosts
 
 with hosts({"example.org": "localhost"}):
     ...
-    r = requests.get("http://example.org") # the request is sent to your local server
+    r = requests.get("http://example.org")  # the request is sent to your local server
     ...
 ```
 ### Options
@@ -61,10 +72,10 @@ from hookdns import hosts
 
 with hosts({"example.org": "localhost"}, only=["gethostbyname"]):
     ...
-    addr = socket.gethostbyname("example.org") # returns "127.0.0.1"
+    addr = socket.gethostbyname("example.org")  # returns "127.0.0.1"
     print("gethostname returns: %s" % addr)
 
-    _, _, addr = socket.gethostbyname_ex("example.org") # returns the real ip address for example.org
+    _, _, addr = socket.gethostbyname_ex("example.org")  # returns the real ip address for example.org
     print("gethostname_ex returns: %s" % addr[0])
     ...    
 ```
@@ -72,8 +83,3 @@ with hosts({"example.org": "localhost"}, only=["gethostbyname"]):
 gethostname returns: 127.0.0.1
 gethostname_ex returns: 93.184.216.34
 ```
-
-
-## Limitation
-
-It works only with Python 3.4 and greater.
