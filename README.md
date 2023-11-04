@@ -9,7 +9,7 @@ import requests
 
 from hookdns import hosts
 
-with hosts({"example.org": "localhost"}):
+with hosts({"example.org": "127.0.0.1"}):
     ...
     r = requests.get("http://example.org")  # the request is sent to your local server
     ...
