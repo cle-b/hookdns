@@ -35,6 +35,9 @@ jobs:
         os: [macos-latest, windows-latest, ubuntu-latest]
         python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
     steps:
+    - name: Set DNS to Google DNS
+      run: |
+        netsh interface ip set dns "Ethernet" static 8.8.8.8
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
