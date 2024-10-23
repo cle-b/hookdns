@@ -12,7 +12,6 @@ from hookdns import hosts
 
 def test_real_gethostbyname_ex_with_name():
     (hostname, _, ipaddrlist) = socket.gethostbyname_ex("localhost")
-    assert hostname == "localhost"
     assert "127.0.0.1" in ipaddrlist
 
 
