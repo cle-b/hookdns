@@ -20,7 +20,7 @@ def test_real_getaddrinfo_with_name_ipv4():
 
 def test_real_getaddrinfo_with_name_ipv6():
     r = socket.getaddrinfo(
-        "ip6-localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP
+        "localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP
     )
     for _, _, _, _, sockaddr in r:
         assert sockaddr == ("::1", 80, 0, 0)
@@ -73,10 +73,10 @@ def test_patch_decorator_with_name_ipv4():
         assert sockaddr == ("1.2.3.4", 80)
 
 
-@hosts({"ip6-localhost": "1::23"})
+@hosts({"localhost": "1::23"})
 def test_patch_decorator_with_name_ipv6():
     r = socket.getaddrinfo(
-        "ip6-localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP
+        "localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP
     )
     for _, _, _, _, sockaddr in r:
         assert sockaddr == ("1::23", 80, 0, 0)
@@ -129,11 +129,11 @@ def test_patch_decorator_with_public_fqdn_and_a_name_for_addr_ipv4():
     )
 
 
-@hosts({"example.org": "ip6-localhost"})
+@hosts({"example.org": "localhost"})
 def test_patch_decorator_with_public_fqdn_and_a_name_for_addr_ipv6():
     family = socket.AF_INET6
     assert socket.getaddrinfo("example.org", 80, family=family) == socket.getaddrinfo(
-        "ip6-localhost", 80, family=family
+        "localhost", 80, family=family
     )
 
 
@@ -156,7 +156,7 @@ def test_patch_decorator_with_another_hostname_ipv4():
 @hosts({"localhost2": "1.2.3.4"})
 def test_patch_decorator_with_another_hostname_ipv6():
     r = socket.getaddrinfo(
-        "ip6-localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP
+        "localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP
     )
     for _, _, _, _, sockaddr in r:
         assert sockaddr == ("::1", 80, 0, 0)
@@ -175,9 +175,9 @@ def test_patch_contextmanager_with_name_ipv4():
 
 
 def test_patch_contextmanager_with_name_ipv6():
-    with hosts({"ip6-localhost": "1::23"}):
+    with hosts({"localhost": "1::23"}):
         r = socket.getaddrinfo(
-            "ip6-localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP
+            "localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP
         )
         for _, _, _, _, sockaddr in r:
             assert sockaddr == ("1::23", 80, 0, 0)
@@ -235,11 +235,11 @@ def test_patch_contextmanager_with_public_fqdn_and_a_name_for_addr_ipv4():
 
 
 def test_patch_contextmanager_with_public_fqdn_and_a_name_for_addr_ipv6():
-    with hosts({"example.org": "ip6-localhost"}):
+    with hosts({"example.org": "localhost"}):
         family = socket.AF_INET6
         assert socket.getaddrinfo(
             "example.org", 80, family=family
-        ) == socket.getaddrinfo("ip6-localhost", 80, family=family)
+        ) == socket.getaddrinfo("localhost", 80, family=family)
 
 
 def test_patch_contextmanager_with_unknown_hostname():
@@ -261,7 +261,7 @@ def test_patch_contextmanager_with_another_hostname_ipv4():
 def test_patch_contextmanager_with_another_hostname_ipv6():
     with hosts({"localhost2": "1.2.3.4"}):
         r = socket.getaddrinfo(
-            "ip6-localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP
+            "localhost", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP
         )
         for _, _, _, _, sockaddr in r:
             assert sockaddr == ("::1", 80, 0, 0)
