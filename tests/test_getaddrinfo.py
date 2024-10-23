@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import platform
 import socket
 
 import pytest
@@ -48,6 +48,10 @@ def test_real_getaddrinfo_with_public_fqdn_ipv4():
         assert ipaddr != "127.0.0.1"
 
 
+@pytest.mark.skipif(
+    platform.system().lower() == "windows",
+    reason="ipv6 issue for windows on github actions",
+)
 def test_real_getaddrinfo_with_public_fqdn_ipv6():
     r = socket.getaddrinfo(
         "example.org", 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP
