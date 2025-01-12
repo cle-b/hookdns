@@ -64,7 +64,7 @@ def patch_getaddrinfo(hosts: Dict[str, str]) -> Generator[None, None, None]:
                 socket.SocketKind,
                 int,
                 str,
-                Tuple[str, int] | Tuple[str, int, int, int],
+                Union[Tuple[str, int], Tuple[str, int, int, int]],
             ]
         ]:
             new_host = hosts.get(str(host), host) if host else host
