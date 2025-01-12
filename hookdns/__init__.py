@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-from .hosts import hosts
+from hookdns.hosts import hosts
 
-name = "hookdns"
-VERSION = "1.1.1"
+__version__ = "2.0.0"
 
 __all__ = ["hosts"]

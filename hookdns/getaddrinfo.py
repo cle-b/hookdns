@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
-
-from contextlib import ContextDecorator
+import contextlib
+from typing import Dict
+from typing import Generator
+from typing import List
+from typing import Tuple
+from typing import Union
 import socket
-from unittest.mock import patch
 
 
-class patch_getaddrinfo(ContextDecorator):
+@contextlib.contextmanager
+def patch_getaddrinfo(hosts: Dict[str, str]) -> Generator[None, None, None]:
     """Intercepts the call to socket.getaddrinfo to customize the DNS resolution.
 
     Custom DNS resolutions are describe by a dictionnary where the keys are hostnames
@@ -44,21 +48,30 @@ class patch_getaddrinfo(ContextDecorator):
             ...
     https://docs.python.org/3/library/socket.html#socket.getaddrinfo
     """
+    try:
+        real_socket_getaddrinfo = socket.getaddrinfo
 
-    def __init__(self, hosts):
-        self.real_socket_getaddrinfo = socket.getaddrinfo
-        self.hosts = hosts
+        def _patch_socket_getaddrinfo(
+            host: Union[bytes, str, None],
+            port: Union[bytes, str, int, None],
+            family: int = 0,
+            type: int = 0,
+            proto: int = 0,
+            flags: int = 0,
+        ) -> List[
+            Tuple[
+                socket.AddressFamily,
+                socket.SocketKind,
+                int,
+                str,
+                Union[Tuple[str, int], Tuple[str, int, int, int]],
+            ]
+        ]:
+            new_host = hosts.get(str(host), host) if host else host
+            return real_socket_getaddrinfo(new_host, port, family, type, proto, flags)
 
-    def _patch_socket_getaddrinfo(self, host, port, family=0, type=0, proto=0, flags=0):
-        new_host = self.hosts.get(host, host)
-        return self.real_socket_getaddrinfo(new_host, port, family, type, proto, flags)
+        socket.getaddrinfo = _patch_socket_getaddrinfo
 
-    def __enter__(self):
-        self.mock_getaddrinfo = patch("socket.getaddrinfo")
-        mock_getaddrinfo2 = self.mock_getaddrinfo.start()
-        mock_getaddrinfo2.side_effect = self._patch_socket_getaddrinfo
-        return self
-
-    def __exit__(self, *exc):
-        self.mock_getaddrinfo.stop()
-        return False
+        yield
+    finally:
+        socket.getaddrinfo = real_socket_getaddrinfo
