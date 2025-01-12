@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
+import contextlib
+from typing import Dict
+from typing import Generator
+from typing import List
+from typing import Tuple
 
-from contextlib import ContextDecorator
 import socket
-from unittest.mock import patch
 
 
-class patch_gethostbyname_ex(ContextDecorator):
+@contextlib.contextmanager
+def patch_gethostbyname_ex(hosts: Dict[str, str]) -> Generator[None, None, None]:
     """Intercepts the call to socket.gethostbyname_ex to customize the DNS resolution.
 
     Custom DNS resolutions are describe by a dictionnary where the keys are hostnames
@@ -34,24 +38,20 @@ class patch_gethostbyname_ex(ContextDecorator):
             ...
     https://docs.python.org/3/library/socket.html#socket.gethostbyname_ex
     """  # noqa: E501
+    try:
+        real_socket_gethostbyname_ex = socket.gethostbyname_ex
 
-    def __init__(self, hosts):
-        self.real_socket_gethostbyname_ex = socket.gethostbyname_ex
-        self.hosts = hosts
+        def _patch_socket_gethostbyname_ex(
+            hostname: str,
+        ) -> Tuple[str, List[str], List[str]]:
+            new_host = hosts.get(hostname, hostname)
+            (_, _, ipaddrlist) = real_socket_gethostbyname_ex(new_host)
+            # we modify the return value with the original hostname
+            # and set an empty aliaslist
+            return (hostname, [], ipaddrlist)
 
-    def _patch_socket_gethostbyname_ex(self, hostname):
-        new_host = self.hosts.get(hostname, hostname)
-        (_, _, ipaddrlist) = self.real_socket_gethostbyname_ex(new_host)
-        # we modify the return value with the original hostname
-        # and set an empty aliaslist
-        return (hostname, [], ipaddrlist)
+        socket.gethostbyname_ex = _patch_socket_gethostbyname_ex
 
-    def __enter__(self):
-        self.mock_gethostbyname_ex = patch("socket.gethostbyname_ex")
-        mock_gethostbyname_ex2 = self.mock_gethostbyname_ex.start()
-        mock_gethostbyname_ex2.side_effect = self._patch_socket_gethostbyname_ex
-        return self
-
-    def __exit__(self, *exc):
-        self.mock_gethostbyname_ex.stop()
-        return False
+        yield
+    finally:
+        socket.gethostbyname_ex = real_socket_gethostbyname_ex

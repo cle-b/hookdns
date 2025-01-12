@@ -18,6 +18,9 @@ lint:
 	black --check hookdns tests
 	flake8 hookdns tests
 
+typing:
+	mypy
+
 test:
 	pytest -v tests/
 

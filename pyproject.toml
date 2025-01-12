@@ -10,7 +10,7 @@ authors = [
 description="An easy way to customize the dns resolution"
 readme="README.md"
 urls = {repository = "https://github.com/cle-b/hookdns"}
-requires-python = ">=3.6"
+requires-python = ">=3.8"
 license = {text = "Apache-2.0"}
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -22,4 +22,4 @@ classifiers = [
 dynamic = ["version"]
 
 [tool.setuptools.dynamic]
-version = {attr = "hookdns.VERSION"}
+version = {attr = "hookdns.__version__"}

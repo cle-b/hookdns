@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-
-from contextlib import ContextDecorator
+import contextlib
+from typing import Dict
+from typing import Generator
 import socket
-from unittest.mock import patch
 
 
-class patch_gethostbyname(ContextDecorator):
+@contextlib.contextmanager
+def patch_gethostbyname(hosts: Dict[str, str]) -> Generator[None, None, None]:
     """Intercepts the call to socket.gethostbyname to customize the DNS resolution.
 
     Custom DNS resolutions are describe by a dictionnary where the keys are hostnames
@@ -35,20 +36,15 @@ class patch_gethostbyname(ContextDecorator):
     https://docs.python.org/3/library/socket.html#socket.gethostbyname
     """
 
-    def __init__(self, hosts):
-        self.real_socket_gethostbyname = socket.gethostbyname
-        self.hosts = hosts
+    try:
+        real_socket_gethostbyname = socket.gethostbyname
 
-    def _patch_socket_gethostbyname(self, hostname):
-        new_host = self.hosts.get(hostname, hostname)
-        return self.real_socket_gethostbyname(new_host)
+        def _patch_socket_gethostbyname(hostname: str) -> str:
+            new_host = hosts.get(hostname, hostname)
+            return real_socket_gethostbyname(new_host)
 
-    def __enter__(self):
-        self.mock_gethostbyname = patch("socket.gethostbyname")
-        mock_gethostbyname2 = self.mock_gethostbyname.start()
-        mock_gethostbyname2.side_effect = self._patch_socket_gethostbyname
-        return self
+        socket.gethostbyname = _patch_socket_gethostbyname
 
-    def __exit__(self, *exc):
-        self.mock_gethostbyname.stop()
-        return False
+        yield
+    finally:
+        socket.gethostbyname = real_socket_gethostbyname
