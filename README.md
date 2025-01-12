@@ -1,4 +1,4 @@
-[![Build Status](https://github.com/cle-b/hookdns/workflows/Build/badge.svg?branch=main)](https://github.com/cle-b/hookdns/actions?query=workflow%3ABuild) [![Coverage Status](https://coveralls.io/repos/github/cle-b/hookdns/badge.svg?branch=main)](https://coveralls.io/github/cle-b/hookdns?branch=main) [![PyPI version](https://badge.fury.io/py/hookdns.svg)](https://pypi.org/project/hookdns/)
+[![Build](https://github.com/cle-b/hookdns/actions/workflows/build.yml/badge.svg)](https://github.com/cle-b/hookdns/actions/workflows/build.yml) [![Coverage Status](https://coveralls.io/repos/github/cle-b/hookdns/badge.svg?branch=main)](https://coveralls.io/github/cle-b/hookdns?branch=main) [![PyPI version](https://badge.fury.io/py/hookdns.svg)](https://pypi.org/project/hookdns/)
 
 # hookdns
 
