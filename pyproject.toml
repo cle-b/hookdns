@@ -10,7 +10,7 @@ authors = [
 description="An easy way to customize the dns resolution"
 readme="README.md"
 urls = {repository = "https://github.com/cle-b/hookdns"}
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 classifiers = [
