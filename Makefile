@@ -12,10 +12,10 @@ setup: clean
 	)
 
 format:
-	black hookdns tests
+	black hookdns tests --target-version py39
 
 lint:
-	black --check hookdns tests
+	black --check hookdns tests --target-version py39
 	flake8 hookdns tests
 
 typing:

@@ -1,11 +1,8 @@
-# -*- coding: utf-8 -*-
-
 import socket
 
 import pytest
 
 from hookdns import hosts
-
 
 # tests for the real gethostbyname
 

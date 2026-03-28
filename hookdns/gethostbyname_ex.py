@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import contextlib
 from typing import Dict
 from typing import Generator
@@ -45,7 +44,7 @@ def patch_gethostbyname_ex(hosts: Dict[str, str]) -> Generator[None, None, None]
             hostname: str,
         ) -> Tuple[str, List[str], List[str]]:
             new_host = hosts.get(hostname, hostname)
-            (_, _, ipaddrlist) = real_socket_gethostbyname_ex(new_host)
+            _, _, ipaddrlist = real_socket_gethostbyname_ex(new_host)
             # we modify the return value with the original hostname
             # and set an empty aliaslist
             return (hostname, [], ipaddrlist)
