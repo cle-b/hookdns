@@ -1,17 +1,14 @@
-# -*- coding: utf-8 -*-
-
 import socket
 
 import pytest
 
 from hookdns.gethostbyname_ex import patch_gethostbyname_ex
 
-
 # tests for the real gethostbyname_ex
 
 
 def test_real_gethostbyname_ex_with_name():
-    (hostname, _, ipaddrlist) = socket.gethostbyname_ex("localhost")
+    hostname, _, ipaddrlist = socket.gethostbyname_ex("localhost")
     assert "127.0.0.1" in ipaddrlist
 
 
@@ -20,7 +17,7 @@ def test_real_gethostbyname_ex_with_ip():
 
 
 def test_real_gethostbyname_ex_with_public_fqdn():
-    (hostname, _, ipaddrlist) = socket.gethostbyname_ex("example.org")
+    hostname, _, ipaddrlist = socket.gethostbyname_ex("example.org")
     assert hostname == "example.org"
     assert len(ipaddrlist) > 0
     assert "127.0.0.1" not in ipaddrlist
@@ -36,7 +33,7 @@ def test_real_gethostbyname_ex_with_unknown_hostname():
 
 @patch_gethostbyname_ex({"localhost": "1.2.3.4"})
 def test_patch_decorator_with_name():
-    (hostname, _, ipaddrlist) = socket.gethostbyname_ex("localhost")
+    hostname, _, ipaddrlist = socket.gethostbyname_ex("localhost")
     assert hostname == "localhost"
     assert ipaddrlist == ["1.2.3.4"]
 
@@ -48,14 +45,14 @@ def test_patch_decorator_with_ip():
 
 @patch_gethostbyname_ex({"example.org": "1.2.3.4"})
 def test_patch_decorator_with_public_fqdn():
-    (hostname, _, ipaddrlist) = socket.gethostbyname_ex("example.org")
+    hostname, _, ipaddrlist = socket.gethostbyname_ex("example.org")
     assert hostname == "example.org"
     assert ipaddrlist == ["1.2.3.4"]
 
 
 @patch_gethostbyname_ex({"example.org": "localhost"})
 def test_patch_decorator_with_public_fqdn_and_a_name_for_addr():
-    (hostname, _, ipaddrlist) = socket.gethostbyname_ex("example.org")
+    hostname, _, ipaddrlist = socket.gethostbyname_ex("example.org")
     assert hostname == "example.org"
     assert "127.0.0.1" in ipaddrlist
 
@@ -74,7 +71,7 @@ def test_patch_decorator_with_unknown_hostname():
 
 def test_patch_contextmanager_with_name():
     with patch_gethostbyname_ex({"localhost": "1.2.3.4"}):
-        (hostname, _, ipaddrlist) = socket.gethostbyname_ex("localhost")
+        hostname, _, ipaddrlist = socket.gethostbyname_ex("localhost")
         assert hostname == "localhost"
         assert ipaddrlist == ["1.2.3.4"]
 
@@ -95,7 +92,7 @@ def test_patch_contextmanager_with_public_fqdn():
 
 def test_patch_contextmanager_with_public_fqdn_and_a_name_for_addr():
     with patch_gethostbyname_ex({"example.org": "localhost"}):
-        (hostname, _, ipaddrlist) = socket.gethostbyname_ex("example.org")
+        hostname, _, ipaddrlist = socket.gethostbyname_ex("example.org")
         assert hostname == "example.org"
         assert "127.0.0.1" in ipaddrlist
 

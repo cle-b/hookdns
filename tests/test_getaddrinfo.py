@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
 import platform
 import socket
 
 import pytest
 
 from hookdns.getaddrinfo import patch_getaddrinfo
-
 
 # tests for the real getaddrinfo
 

@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
 import platform
 import socket
 
 import pytest
 
 from hookdns import hosts
-
 
 # tests for the real getaddrinfo
 
