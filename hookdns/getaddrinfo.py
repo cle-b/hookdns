@@ -1,14 +1,10 @@
+from collections.abc import Generator
 import contextlib
-from typing import Dict
-from typing import Generator
-from typing import List
-from typing import Tuple
-from typing import Union
 import socket
 
 
 @contextlib.contextmanager
-def patch_getaddrinfo(hosts: Dict[str, str]) -> Generator[None, None, None]:
+def patch_getaddrinfo(hosts: dict[str, str]) -> Generator[None, None, None]:
     """Intercepts the call to socket.getaddrinfo to customize the DNS resolution.
 
     Custom DNS resolutions are describe by a dictionnary where the keys are hostnames
@@ -50,22 +46,14 @@ def patch_getaddrinfo(hosts: Dict[str, str]) -> Generator[None, None, None]:
     try:
         real_socket_getaddrinfo = socket.getaddrinfo
 
-        def _patch_socket_getaddrinfo(
-            host: Union[bytes, str, None],
-            port: Union[bytes, str, int, None],
-            family: int = 0,
-            type: int = 0,
-            proto: int = 0,
-            flags: int = 0,
-        ) -> List[
-            Tuple[
-                socket.AddressFamily,
-                socket.SocketKind,
-                int,
-                str,
-                Union[Tuple[str, int], Tuple[str, int, int, int], Tuple[int, bytes]],
-            ]
-        ]:
+        def _patch_socket_getaddrinfo(  # type: ignore[no-untyped-def]
+            host,
+            port,
+            family=0,
+            type=0,
+            proto=0,
+            flags=0,
+        ):
             new_host = hosts.get(str(host), host) if host else host
             return real_socket_getaddrinfo(new_host, port, family, type, proto, flags)
 
