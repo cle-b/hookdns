@@ -1,11 +1,10 @@
+from collections.abc import Generator
 import contextlib
-from typing import Dict
-from typing import Generator
 import socket
 
 
 @contextlib.contextmanager
-def patch_gethostbyname(hosts: Dict[str, str]) -> Generator[None, None, None]:
+def patch_gethostbyname(hosts: dict[str, str]) -> Generator[None, None, None]:
     """Intercepts the call to socket.gethostbyname to customize the DNS resolution.
 
     Custom DNS resolutions are describe by a dictionnary where the keys are hostnames
@@ -38,7 +37,7 @@ def patch_gethostbyname(hosts: Dict[str, str]) -> Generator[None, None, None]:
     try:
         real_socket_gethostbyname = socket.gethostbyname
 
-        def _patch_socket_gethostbyname(hostname: str) -> str:
+        def _patch_socket_gethostbyname(hostname):  # type: ignore[no-untyped-def]
             new_host = hosts.get(hostname, hostname)
             return real_socket_gethostbyname(new_host)
 

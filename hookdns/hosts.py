@@ -1,6 +1,5 @@
+from collections.abc import Generator
 import contextlib
-from typing import Dict
-from typing import Generator
 
 from hookdns.getaddrinfo import patch_getaddrinfo
 from hookdns.gethostbyname import patch_gethostbyname
@@ -8,7 +7,7 @@ from hookdns.gethostbyname_ex import patch_gethostbyname_ex
 
 
 @contextlib.contextmanager
-def hosts(hosts: Dict[str, str]) -> Generator[None, None, None]:
+def hosts(hosts: dict[str, str]) -> Generator[None, None, None]:
     """Customize DNS resolutions based on a dictionary where the keys are hostnames and the values are the corresponding expected addresses.
 
         {
